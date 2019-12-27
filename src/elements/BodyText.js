@@ -9,6 +9,8 @@ class BodyText extends React.Component {
           {this.props.children}
         </Text>
       </View>
+
+      <View>
     );
   }
 }

@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
   memoList: {
     width: '100%',
     flex: 1, // スクリーンいっぱいに広げること
-    paddingTop: 78,
   },
   memoListItem: {
     padding: 16,
