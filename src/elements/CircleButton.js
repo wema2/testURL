@@ -8,6 +8,7 @@ import fontAwsome from '../../assets/fonts/fa-solid-900.ttf'; // カスタムフ
 const CustomIcon = createIconSet({ // 公式のglyphMaoを分かりやすくおきかえた
   pencil: '\uf303', // 鉛筆
   plus: '\uf067', // プラス
+  check: '\uf00c',
 }, 'FontAwesome');
 
 class CircleButton extends React.Component {
