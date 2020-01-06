@@ -2,13 +2,45 @@ import React from 'react';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
 
 class LoginScreen extends React.Component {
+  // テキストフィールドで入力したワードをキャッチする箱を作る
+  state = {
+    email: '',
+    password: '',
+  }
+
+  // eslint-disable-next-line
+  handleSubmit() {
+    // { this.props.navigation.navigate('Home')}
+
+    // Log in!!
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>ログイン</Text>
-        <TextInput style={styles.input} value="Email Address" />
-        <TextInput style={styles.input} value="Password" />
-        <TouchableHighlight style={styles.bottun} onPress={() => {}}>
+        <Text style={styles.title}>
+          ログイン
+        </Text>
+        <TextInput
+          style={styles.input}
+          value={this.state.email}
+          onChangeText={(text) => { this.setState({ email: text }); }}
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholder="Email Address"
+          underlineColorAndroid="transparent"
+        />
+        <TextInput
+          style={styles.input}
+          value={this.state.password}
+          onChangeText={(text) => { this.setState({ password: text }); }}
+          autoCapitalize="none"
+          autoCorrect={false}
+          placeholder="Password"
+          secureTextEntry
+          underlineColorAndroid="transparent"
+        />
+        <TouchableHighlight style={styles.bottun} onPress={this.handleSubmit.bind(this)}>
           <Text style={styles.buttonTitle}>ログインする</Text>
         </TouchableHighlight>
       </View>
