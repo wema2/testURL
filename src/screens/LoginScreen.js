@@ -1,18 +1,41 @@
 import React from 'react';
+// import * as SecureStore from 'expo-secure-store';
 import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
+import firebase from 'firebase';
+// import { NavigationActions, StackActions } from 'react-navigation';
 
 class LoginScreen extends React.Component {
   // テキストフィールドで入力したワードをキャッチする箱を作る
   state = {
-    email: '',
-    password: '',
+    email: '2@2.2',
+    password: '222222',
   }
+
+  // navigateToHome() {
+  //   const resetAction = StackActions.reset({
+  //     index: 0,
+  //     actions: [
+  //       NavigationActions.navigate({ routeName: 'Home' }),
+  //     ],
+  //   });
+  //   this.props.navigation.dispatch(resetAction);
+  // }
 
   // eslint-disable-next-line
   handleSubmit() {
-    // { this.props.navigation.navigate('Home')}
-
-    // Log in!!
+    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
+      .then((user) => {
+        // SecureStore.setItemAsync('email', this.state.email);
+        // SecureStore.setItemAsync('password', this.state.password);
+        // this.navigateToHome();
+        // eslint-disable-next-line
+        console.log('success!', user);
+        this.props.navigation.navigate('Home');
+      })
+      .catch((error) => {
+        // eslint-disable-next-line
+        console.log('error!', error);
+      });
   }
 
   render() {
