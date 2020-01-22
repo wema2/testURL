@@ -1,41 +1,52 @@
 import React from 'react';
 // import * as SecureStore from 'expo-secure-store';
-import { StyleSheet, View, Text, TextInput, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, TextInput, TouchableHighlight, TouchableOpacity } from 'react-native';
 import firebase from 'firebase';
-// import { NavigationActions, StackActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
+
+// import Loading from '../elements/Loading';
 
 class LoginScreen extends React.Component {
-  // テキストフィールドで入力したワードをキャッチする箱を作る
   state = {
-    email: '2@2.2',
-    password: '222222',
+    email: 'user1@example.com',
+    password: 'password',
   }
 
-  // navigateToHome() {
-  //   const resetAction = StackActions.reset({
-  //     index: 0,
-  //     actions: [
-  //       NavigationActions.navigate({ routeName: 'Home' }),
-  //     ],
-  //   });
-  //   this.props.navigation.dispatch(resetAction);
-  // }
+  async componentDidMount() {
+    /*
+    const email = await SecureStore.getItemAsync('email');
+    const password = await SecureStore.getItemAsync('password');
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({ isLoading: false });
+        this.navigateToHome();
+      })
+      .catch();
+    */
+  }
 
-  // eslint-disable-next-line
+  navigateToHome() {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [
+        NavigationActions.navigate({ routeName: 'Home' }),
+      ],
+    });
+    this.props.navigation.dispatch(resetAction);
+  }
+
   handleSubmit() {
     firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then((user) => {
+      .then(() => {
         // SecureStore.setItemAsync('email', this.state.email);
         // SecureStore.setItemAsync('password', this.state.password);
-        // this.navigateToHome();
-        // eslint-disable-next-line
-        console.log('success!', user);
-        this.props.navigation.navigate('Home');
+        this.navigateToHome();
       })
-      .catch((error) => {
-        // eslint-disable-next-line
-        console.log('error!', error);
-      });
+      .catch();
+  }
+
+  handlePress() {
+    this.props.navigation.navigate('Signup');
   }
 
   render() {
@@ -63,37 +74,41 @@ class LoginScreen extends React.Component {
           secureTextEntry
           underlineColorAndroid="transparent"
         />
-        <TouchableHighlight style={styles.bottun} onPress={this.handleSubmit.bind(this)}>
+        <TouchableHighlight style={styles.button} onPress={this.handleSubmit.bind(this)} underlayColor="#C70F66">
           <Text style={styles.buttonTitle}>ログインする</Text>
         </TouchableHighlight>
+
+        <TouchableOpacity style={styles.signup} onPress={this.handlePress.bind(this)}>
+          <Text style={styles.signupText}>メンバー登録する</Text>
+        </TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  container :{
+  container: {
     flex: 1,
     width: '100%',
     padding: 24,
     backgroundColor: '#fff',
+  },
+  input: {
+    backgroundColor: '#eee',
+    height: 48,
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#DDD',
+    padding: 8,
   },
   title: {
     fontSize: 28,
     alignSelf: 'center',
     marginBottom: 24,
   },
-  input: {
-    backgroundColor: '#eee',
-    height: 40,
-    marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#DDD',
-    padding: 8,
-  },
-  bottun: {
+  button: {
     backgroundColor: '#E31676',
-    height: 40,
+    height: 48,
     borderRadius: 4,
     justifyContent: 'center',
     alignItems: 'center',
@@ -103,6 +118,13 @@ const styles = StyleSheet.create({
   buttonTitle: {
     color: '#fff',
     fontSize: 18,
+  },
+  signup: {
+    marginTop: 16,
+    alignSelf: 'center',
+  },
+  signupText: {
+    fontSize: 16,
   },
 });
 

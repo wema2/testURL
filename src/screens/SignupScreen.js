@@ -21,8 +21,7 @@ class SignupScreen extends React.Component {
         });
         this.props.navigation.dispatch(resetAction);
       })
-      .catch((error) => {
-        global.console.log(error);
+      .catch(() => {
       });
   }
 
